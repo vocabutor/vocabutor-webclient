@@ -1,0 +1,131 @@
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--input-bg);
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Ensures all content inside is centered */
+  }
+  
+  .login-form {
+    width: 100%; /* Make form take full width of container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .login-form label {
+    width: 100%; /* Makes labels take full width */
+    text-align: left; /* Aligns label text to the left */
+    margin-bottom: 10px;
+    color: var(--text-color);
+  }
+  
+  .login-form input {
+    width: 100%; /* Makes inputs take full width of the form */
+    padding: 10px;
+    margin-top: 5px;
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 4px;
+    color: var(--text-color);
+  }
+  
+  .login-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+
+h2 {
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.divider {
+  margin: 20px 0;
+  color: var(--text-color);
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: var(--input-border);
+}
+
+.divider::before {
+  left: 0;
+}
+
+.divider::after {
+  right: 0;
+}
+
+.google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--input-border);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.google-button img {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+}
+
+
+.login-form input,
+.login-form button,
+.google-button {
+  width: 100%;
+}
+
+/* Media query for tablets (screen width 768px and below) */
+@media (max-width: 768px) {
+  .login-container {
+    padding: 15px;
+    margin: 20px;
+    max-width: 90%; /* Use 90% of screen width */
+  }
+}
+
+/* Media query for mobile devices (screen width 480px and below) */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 10px;
+    margin: 10px;
+    max-width: 100%; /* Full screen width on very small devices */
+  }
+
+  h2 {
+    font-size: 1.5rem; /* Reduce font size */
+  }
+
+  .login-form input,
+  .login-form button,
+  .google-button {
+    padding: 8px; /* Reduce padding for smaller screen real estate */
+    font-size: 0.9rem; /* Slightly smaller font for inputs and button */
+  }
+}
