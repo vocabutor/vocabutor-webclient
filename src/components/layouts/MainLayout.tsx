@@ -1,15 +1,13 @@
-import './App.css'
-
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
 
-const App: React.FC = () => {
+const MainLayout: React.FC = () => {
   return (
     <div>
       <nav>
         <Link to="/">Home</Link> | 
         <Link to="/about">About</Link> |
-        <Link to="/login">Login</Link>
+        <Link to="/auth/login">Login</Link>
       </nav>
       <hr />
       <Outlet />
@@ -17,4 +15,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default MainLayout;

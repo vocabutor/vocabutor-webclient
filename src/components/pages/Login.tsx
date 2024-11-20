@@ -2,8 +2,13 @@
 import React from 'react';
 import './Login.css';
 import GoogleLoginButton from '../GoogleLoginButton';
+import { setAuthCookie } from '../../helpers/Cookies';
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
+
+    const navigate = useNavigate();
+
     const handleGoogleSuccess = async (response: any) => {
         console.log("Google login successful:", response);
         try {
@@ -22,7 +27,8 @@ const Login: React.FC = () => {
               const jwtToken = data.token; // Assume backend returns a JWT token
               console.log("Logged in successfully!");
               console.log(jwtToken);
-              // Redirect or handle logged-in user state
+              setAuthCookie(jwtToken)
+              navigate("/")
             } else {
               console.error("Google login verification failed.");
             }
