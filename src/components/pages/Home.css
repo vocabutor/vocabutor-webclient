@@ -1,0 +1,146 @@
+/* General Styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.homepage {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #1e1e1e;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.search-bar {
+    flex-grow: 1;
+    margin: 0 2rem;
+    padding: 0.5rem 1rem;
+    background-color: #2c2c2c;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #aaaaaa;
+}
+
+.nav-link.active {
+    color: #00ffff;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 5rem 1rem 3rem;
+    background: linear-gradient(120deg, #1e1e1e, #121212);
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.hero-subtitle {
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    color: #aaaaaa;
+}
+
+.hero-buttons .btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0.5rem;
+}
+
+.btn.primary {
+    background-color: #00ffff;
+    color: #121212;
+}
+
+.btn.secondary {
+    background: none;
+    color: #00ffff;
+    border: 2px solid #00ffff;
+}
+
+/* Deck Sections */
+.recent-decks,
+.suggested-decks {
+    padding: 2rem;
+}
+
+.recent-decks h2,
+.suggested-decks h2 {
+    margin-bottom: 1rem;
+}
+
+.deck-carousel {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+}
+
+.deck-card {
+    background-color: #1e1e1e;
+    padding: 1rem;
+    border-radius: 8px;
+    flex-shrink: 0;
+    width: 200px;
+}
+
+.deck-card.add-deck {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 2px dashed #aaaaaa;
+}
+
+.progress-bar {
+    background-color: #2c2c2c;
+    height: 6px;
+    border-radius: 4px;
+}
+
+.progress {
+    background-color: #00ffff;
+    height: 100%;
+    border-radius: 4px;
+}
+
+/* Footer */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background-color: #1e1e1e;
+    color: #aaaaaa;
+}
