@@ -6,7 +6,7 @@ import './index.css'
 import MainLayout from './components/layouts/MainLayout.tsx';
 import AuthLayout from './components/layouts/AuthLayout.tsx';
 
-import Home from './components/pages/Home';
+import Home from './components/pages/home/Home.tsx';
 import About from './components/pages/About';
 import Login from './components/pages/Login'
 
