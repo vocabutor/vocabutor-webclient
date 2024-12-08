@@ -9,6 +9,7 @@ import AuthLayout from './components/layouts/AuthLayout.tsx';
 import Home from './components/pages/home/Home.tsx';
 import About from './components/pages/About';
 import Login from './components/pages/Login'
+import Decks from './components/pages/decks/Decks.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
+          <Route path="decks" element={<Decks />} />
         </Route>
         <Route path="auth" element={<AuthLayout />}>
           <Route path="login" element={<Login />} />
