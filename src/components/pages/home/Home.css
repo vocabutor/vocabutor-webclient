@@ -1,0 +1,85 @@
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 5rem 1rem 3rem;
+    background: linear-gradient(120deg, #1e1e1e, #121212);
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.hero-subtitle {
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    color: #aaaaaa;
+}
+
+/* Deck Sections */
+.home-main-section {
+    padding: 2rem;
+}
+
+.recent-items h2,
+.suggested-decks h2 {
+    margin-bottom: 1rem;
+}
+
+.carousel-card {
+    background-color: #1e1e1e;
+    padding: 1rem;
+    border-radius: 8px;
+    flex-shrink: 0;
+    width: 200px;
+}
+
+.carousel-card.add-deck {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 2px dashed #aaaaaa;
+}
+
+.progress-bar {
+    background-color: #2c2c2c;
+    height: 6px;
+    border-radius: 4px;
+}
+
+.progress {
+    background-color: #00ffff;
+    height: 100%;
+    border-radius: 4px;
+}
+
+/* Recent Decks Section */
+.recent-items {
+    padding: 2rem;
+}
+
+.recent-items h2 {
+    margin-bottom: 1rem;
+}
+
+.recent-items .carousel {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+}
+
+.show-all-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.show-all-btn {
+    padding: 0.8rem 2rem;
+    background-color: #00ffff;
+    color: #121212;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+}
