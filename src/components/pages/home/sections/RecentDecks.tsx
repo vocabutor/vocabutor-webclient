@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { authCookie } from '../../../../helpers/Cookies';
 import { DeckDto } from '../../../../helpers/CommonEntities';
+import { Link } from 'react-router-dom';
 
 function RecentDecks() {
 
@@ -59,9 +60,11 @@ function RecentDecks() {
         </div>
 
         <div className="show-all-container">
-          <button className="btn primary show-all-btn" onClick={() => window.location.href = '/decks'}>
-            Show All
-          </button>
+          <Link to="/decks">
+            <button className="btn primary show-all-btn">
+                Show All
+            </button>
+          </Link>
         </div>
       </section>
     );
