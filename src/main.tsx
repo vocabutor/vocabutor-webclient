@@ -11,6 +11,7 @@ import About from './components/pages/About';
 import Login from './components/pages/Login'
 import Decks from './components/pages/decks/Decks.tsx';
 import NewDeck from './components/pages/decks/new-deck/NewDeck.tsx';
+import DeckCreated from './components/pages/decks/deck-created/DeckCreated.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -21,6 +22,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="about" element={<About />} />
           <Route path="decks" element={<Decks />} />
           <Route path="decks/new" element={<NewDeck />} />
+          <Route path="decks/created" element={<DeckCreated />} />
         </Route>
         <Route path="auth" element={<AuthLayout />}>
           <Route path="login" element={<Login />} />

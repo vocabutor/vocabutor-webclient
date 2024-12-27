@@ -1,8 +1,13 @@
 import { useState } from "react";
 import classNames from "classnames";
 import { authCookie } from '../../../../helpers/Cookies';
+import { useNavigate } from 'react-router-dom';
+import { DeckDto } from "../../../../helpers/CommonEntities";
 
 export default function NewDeck() {
+
+    const navigate = useNavigate();
+
     const [title, setTitle] = useState<string>("");
     const [tags, setTags] = useState<string[]>([]);
     const [language, setLanguage] = useState<string>("");
@@ -49,11 +54,10 @@ export default function NewDeck() {
                 throw new Error(`Failed to submit: ${response.statusText}`);
             }
 
-            const result = await response.json();
+            const result: DeckDto = await response.json();
             console.log('Deck created successfully:', result);
-            setTitle('');
-            setTags([]);
-            setLanguage('');
+            
+            navigate('/decks/created?deckId=' + result.id)
         } catch (error) {
             console.error('Error submitting form:', error);
         } finally {

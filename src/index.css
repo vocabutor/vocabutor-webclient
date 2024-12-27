@@ -70,6 +70,14 @@ button, input {
   transition: all 0.3s ease;
 }
 
+.btn:disabled {
+  background-color: #ccc; /* Light grey background */
+  color: #666; /* Darker text color */
+  cursor: not-allowed; /* Show not-allowed cursor */
+  opacity: 0.6; /* Make the button slightly transparent */
+  transition: opacity 0.3s ease; 
+}
+
 .btn svg {
   margin-left: 5px;
 }
@@ -84,6 +92,10 @@ button, input {
   color: #121212;
 }
 
+.btn.primary.loading {
+  background-color: #00ffff93;
+}
+
 .btn.secondary {
   background: none;
   color: #00ffff;
@@ -92,6 +104,10 @@ button, input {
 
 .btn.secondary:hover {
   background-color: #2f2f2fcb;
+}
+
+.btn.secondary.loading {
+  color: #00ffff93;
 }
 
 .el-card {
@@ -318,4 +334,121 @@ select:focus {
 
 .submit-button:hover {
   background: var(--primary-button-color-hover);
+}
+
+
+/* Success Page Container */
+.success-container {
+  max-width: 400px;
+  margin: 50px auto;
+  text-align: center;
+  padding: 20px;
+  background: var(--input-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  color: var(--text-color);
+  position: relative;
+}
+
+/* Tick Mark Animation */
+.success-container .tick-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.success-container .tick-mark {
+  width: 50px;
+  height: 50px;
+  border: 3px solid var(--primary-color);
+  border-radius: 50%;
+  position: relative;
+  animation: fadeInScale 1s ease forwards;
+}
+
+.success-container .tick-mark::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+/* Skeleton Loading */
+/* .success-container .skeleton {
+  background: var(--input-border);
+  border-radius: 4px;
+  margin: 10px 0;
+} */
+
+.success-container .skeleton-title {
+  width: 60%;
+  margin: 10px 0;
+  height: 28px;
+}
+
+.success-container .skeleton-text {
+  width: 80%;
+  margin: 10px 0;
+  height: 24px;
+}
+
+.success-container .skeleton {
+  position: relative;
+  background: var(--input-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Shimmer Animation */
+.success-container .skeleton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%; /* Start offscreen */
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--input-border) 0%,
+    var(--text-color-2-hover) 50%,
+    var(--input-border) 100%
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+
+/* Buttons */
+.success-page-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.success-page-action-buttons .btn {
+  margin: 0;
+  width: 100%;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
