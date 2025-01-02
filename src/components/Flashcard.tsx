@@ -5,11 +5,11 @@ import { faCircleInfo, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 interface FlashcardProps {
   title: string;
   description: string;
-  onEdit?: () => void;
+  onDetails?: () => void;
   onDelete?: () => void;
 }
 
-const Flashcard: React.FC<FlashcardProps> = ({ title, description, onEdit, onDelete }) => {
+const Flashcard: React.FC<FlashcardProps> = ({ title, description, onDetails, onDelete }) => {
   return (
     <div className="flashcard">
       <div className="flashcard-content">
@@ -17,7 +17,7 @@ const Flashcard: React.FC<FlashcardProps> = ({ title, description, onEdit, onDel
         <p className="flashcard-description multiline-ellipsis">{description}</p>
       </div>
       <div className="flashcard-actions">
-        <button className="flashcard-action-button primary" onClick={onEdit}>
+        <button className="flashcard-action-button primary" onClick={onDetails}>
           <FontAwesomeIcon icon={faCircleInfo} />
         </button>
         <button className="flashcard-action-button delete" onClick={onDelete}>

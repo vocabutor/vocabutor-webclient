@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { authCookie } from '../../../../helpers/Cookies';
 import { DeckDto } from "../../../../helpers/CommonEntities";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Flashcard from "../../../Flashcard";
 
 export default function DeckDetails() {
 
     const { deckId } = useParams();
+    const navigate = useNavigate()
 
     const [loading, setLoading] = useState<boolean>(true);
     const [deck, setDeck] = useState<DeckDto>();
@@ -84,7 +85,7 @@ export default function DeckDetails() {
                         key={item.id}
                         title={item.phrase}
                         description="Here goes some description for the card"
-                        onEdit={() => handleEdit()}
+                        onDetails={() => navigate(`/cards/${item.id}?source=deck_${deckId}`)}
                         onDelete={() => handleDelete(item.id)}
                     />
                 ))}
