@@ -4,9 +4,11 @@ import { DeckDto } from '../../../helpers/CommonEntities';
 import defaultImage from '../../../assets/default-deck2.webp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark, faThumbTack, faPlusCircle, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Decks() {
+
+    const navigate = useNavigate();
 
     const [data, setData] = useState<DeckDto[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -46,7 +48,7 @@ function Decks() {
     return (
         <div className="padded-container">
             <div className='list-header-section'>
-                <h1 className='list-header-title'>Decks</h1>
+                <h1 className='header-title'>Decks</h1>
                 <div className='list-header-actions'>
                     <Link to="/decks/new">
                         <button className="btn primary">
@@ -59,7 +61,9 @@ function Decks() {
 
             <div className='list-main-section'>
                 {data.map((v, _) => (
-                    <div className="el-card">
+                    <div className="el-card" onClick={(_: React.MouseEvent<HTMLElement>) => {
+                        navigate(`/decks/${v.id}`)
+                      }}>
                         <div className="el-card-photo">
                             <img src={defaultImage} alt="Item Photo" />
                         </div>

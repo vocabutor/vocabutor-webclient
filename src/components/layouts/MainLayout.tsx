@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, NavLink, Link } from 'react-router-dom';
 import './MainLayout.css'
 
 const MainLayout: React.FC = () => {
@@ -16,15 +16,21 @@ const MainLayout: React.FC = () => {
                     placeholder="Search decks or cards…"
                 />
                 <nav className="nav-menu">
-                    <Link to="/" className="nav-link active">
+                    <NavLink to="/" className={({ isActive, isPending }) =>
+                        isPending ? "nav-link pending" : isActive ? "nav-link active" : "nav-link"
+                    }>
                         Home
-                    </Link>
-                    <Link to="/decks" className="nav-link">
+                    </NavLink>
+                    <NavLink to="/decks" className={({ isActive, isPending }) =>
+                        isPending ? "nav-link pending" : isActive ? "nav-link active" : "nav-link"
+                    }>
                         My Decks
-                    </Link>
-                    <Link to="/profile" className="nav-link">
+                    </NavLink>
+                    <NavLink to="/profile" className={({ isActive, isPending }) =>
+                        isPending ? "nav-link pending" : isActive ? "nav-link active" : "nav-link"
+                    }>
                         Profile
-                    </Link>
+                    </NavLink>
                 </nav>
             </header>
 

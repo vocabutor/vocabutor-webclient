@@ -42,11 +42,12 @@
 
 .nav-link {
     text-decoration: none;
-    color: var(--text-color-2);
+    color: var(--text-color);
+    white-space: nowrap;
 }
 
 .nav-link:hover {
-    color: var(--text-color-2-hover);
+    color: var(--nav-link-hover);
 }
 
 .nav-link.active {
