@@ -24,7 +24,10 @@ export default function DeckDetails() {
     const [isWindowOpen, setIsWindowOpen] = useState(false);
 
     const openWindow = () => setIsWindowOpen(true);
-    const closeWindow = () => setIsWindowOpen(false);
+    const closeWindow = () => {
+        setIsWindowOpen(false);
+        fetchData();
+    };
 
     const allTags = ["Object", "Car", "Color", "Verb", "Animal", "House"];
 

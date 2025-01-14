@@ -36,7 +36,7 @@ const DeckDetailsAddCardsSlidingWindow: React.FC<SlidingWindowProps> = ({ isOpen
         }
         setLoading(true);
         try {
-            const response = await fetch(`/api/v1/cards?page=${currentPage}`, {
+            const response = await fetch(`/api/v1/cards?page=${currentPage}&excludeDeckId=${excludeDeckId}`, {
                 headers: {
                     "Authorization": 'Bearer ' + token,
                     "Content-Type": "application/json",
@@ -59,37 +59,41 @@ const DeckDetailsAddCardsSlidingWindow: React.FC<SlidingWindowProps> = ({ isOpen
     };
 
     useEffect(() => {
+        setPage(0);
+        setCards([]);
         if (!isOpen) {
             return;
         }
-        console.log("use effect fetching data");
         fetchData(page);
     }, [isOpen]);
 
     return (
-        <div className={`sliding-window ${isOpen ? "open" : ""}`}>
-            <div className="sliding-window-content">
-                <div className="sliding-window-header">
-                    <h2>Add Cards</h2>
-                    <button onClick={onClose} className="sliding-window-close-button">
-                        <FontAwesomeIcon icon={faClose}></FontAwesomeIcon>
-                    </button>
-                </div>
+        <>
+            {isOpen && <div className="overlay" onClick={onClose}></div>}
+            <div className={`sliding-window ${isOpen ? "open" : ""}`}>
+                <div className="sliding-window-content">
+                    <div className="sliding-window-header">
+                        <h2>Add Cards</h2>
+                        <button onClick={onClose} className="sliding-window-close-button">
+                            <FontAwesomeIcon icon={faClose}></FontAwesomeIcon>
+                        </button>
+                    </div>
 
-                <div className="sidebar-list">
-                    {cards.map((card) => (
-                        <SidebarCard key={card.id} cardId={card.id} phrase={card.phrase} deckId={excludeDeckId} />
-                    ))}
-                </div>
+                    <div className="sidebar-list">
+                        {cards.map((card) => (
+                            <SidebarCard key={card.id} cardId={card.id} phrase={card.phrase} deckId={excludeDeckId} />
+                        ))}
+                    </div>
 
-                <div className="sliding-window-footer">
-                    {hasMore && <button className="sliding-window-hasmore" disabled={loading} onClick={() => loadMore()}>Load more</button>}
-                    {totalCount && <div>
-                        Displaying {cards.length} out of {totalCount} cards
-                    </div>}
+                    <div className="sliding-window-footer">
+                        {hasMore && <button className="sliding-window-hasmore" disabled={loading} onClick={() => loadMore()}>Load more</button>}
+                        {totalCount && <div>
+                            Displaying {cards.length} out of {totalCount} cards
+                        </div>}
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
