@@ -3,6 +3,7 @@ import { authCookie } from '../../../../helpers/Cookies';
 import { DeckDto } from "../../../../helpers/CommonEntities";
 import { useParams, useNavigate } from "react-router-dom";
 import Flashcard from "../../../Flashcard";
+import DeckDetailsAddCardsSlidingWindow from "./DeckDetailsAddCardsSlidingWindow";
 import defaultImage from '../../../../assets/default-deck2.webp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
@@ -19,6 +20,11 @@ export default function DeckDetails() {
     const [categoryFilter, setCategoryFilter] = useState("All");
     const [sortOption, setSortOption] = useState("Title");
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
+    
+    const [isWindowOpen, setIsWindowOpen] = useState(false);
+
+    const openWindow = () => setIsWindowOpen(true);
+    const closeWindow = () => setIsWindowOpen(false);
 
     const allTags = ["Object", "Car", "Color", "Verb", "Animal", "House"];
 
@@ -91,7 +97,7 @@ export default function DeckDetails() {
                         <h1 className='header-title'>{deck?.title}</h1>
                     </>
                 )}
-                <button className="btn primary" disabled={loading}>
+                <button className="btn primary" disabled={loading} onClick={() => openWindow()}>
                     Add Cards
                     <FontAwesomeIcon icon={faPlusCircle} />
                 </button>
@@ -216,6 +222,8 @@ export default function DeckDetails() {
             <div className="sub-paged-list">
                 Displaying {deck?.cards.length} of {deck?.cards.length} items
             </div>
+            
+            <DeckDetailsAddCardsSlidingWindow isOpen={isWindowOpen} onClose={closeWindow} excludeDeckId={deckId!!} />
 
         </div>
     )

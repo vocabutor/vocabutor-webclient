@@ -670,3 +670,74 @@ select:focus {
   height: 200px;
   width: 150px
 }
+
+/* sliding window */
+
+.sliding-window {
+  padding-top: 60px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  transform: translateX(100%); /* Hidden by default */
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.sliding-window.open {
+  transform: translateX(0); /* Slide into view */
+}
+
+.sliding-window-close-button {
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
+  height: 20px;
+}
+
+.sliding-window-content {
+  padding: 20px;
+}
+
+/* Mobile styles */
+@media (min-width: 768px) {
+  .sliding-window {
+    width: 400px;
+  }
+}
+
+.sliding-window-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sliding-window-card {
+  display: flex;
+  align-items: space-between;
+  padding: 10px 15px;
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  height: 80px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+  max-width: 1000px;
+  cursor: 
+}
+
+.sidebar-list {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 600px;
+  gap: 10px;
+}
+

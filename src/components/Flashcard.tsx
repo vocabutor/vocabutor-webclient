@@ -17,12 +17,16 @@ const Flashcard: React.FC<FlashcardProps> = ({ title, description, onDetails, on
         <p className="flashcard-description multiline-ellipsis">{description}</p>
       </div>
       <div className="flashcard-actions">
-        <button className="flashcard-action-button primary" onClick={onDetails}>
-          <FontAwesomeIcon icon={faCircleInfo} />
-        </button>
-        <button className="flashcard-action-button delete" onClick={onDelete}>
-          <FontAwesomeIcon icon={faTrashAlt} />
-        </button>
+        {onDetails && (
+            <button className="flashcard-action-button primary" onClick={onDetails}>
+                <FontAwesomeIcon icon={faCircleInfo} />
+            </button>
+        )}
+        {onDelete && (
+            <button className="flashcard-action-button delete" onClick={onDelete}>
+                <FontAwesomeIcon icon={faTrashAlt} />
+            </button>
+        )}
       </div>
     </div>
   );

@@ -35,3 +35,11 @@ export enum CardStatus {
     ACTIVE = "ACTIVE",
     DELETED = "DELETED",
 }
+
+export interface PageDto<T> {
+    page: number;
+    size: number;
+    items: T[];
+    totalCount: number;
+    hasNext: boolean;
+}
