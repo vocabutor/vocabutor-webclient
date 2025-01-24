@@ -79,18 +79,28 @@ const DeckDetailsAddCardsSlidingWindow: React.FC<SlidingWindowProps> = ({ isOpen
                         </button>
                     </div>
 
-                    <div className="sidebar-list">
-                        {cards.map((card) => (
-                            <SidebarCard key={card.id} cardId={card.id} phrase={card.phrase} deckId={excludeDeckId} />
-                        ))}
-                    </div>
+                    {loading ? (
+                        <div className="loading-spinner-wrapper">
+                            <div className="loading-spinner"></div>
+                        </div>
+                    ) : (
+                        <div className="sidebar-list">
+                            {cards.length === 0 && <div>No cards to add.</div>}
+                            {cards.map((card) => (
+                                <SidebarCard key={card.id} cardId={card.id} phrase={card.phrase} deckId={excludeDeckId} />
+                            ))}
+                        </div>
+                    )}
 
-                    <div className="sliding-window-footer">
-                        {hasMore && <button className="sliding-window-hasmore" disabled={loading} onClick={() => loadMore()}>Load more</button>}
-                        {totalCount && <div>
-                            Displaying {cards.length} out of {totalCount} cards
-                        </div>}
-                    </div>
+                    {!loading && cards.length > 0 && (
+                        <div className="sliding-window-footer">
+                            {hasMore && <button className="sliding-window-hasmore" disabled={loading} onClick={() => loadMore()}>Load more</button>}
+                            {totalCount && <div>
+                                Displaying {cards.length} out of {totalCount} cards
+                            </div>}
+                        </div>
+                        )
+                    }
                 </div>
             </div>
         </>
