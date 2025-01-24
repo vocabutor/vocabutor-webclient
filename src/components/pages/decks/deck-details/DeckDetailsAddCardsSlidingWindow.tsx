@@ -15,7 +15,8 @@ interface SlidingWindowProps {
 const DeckDetailsAddCardsSlidingWindow: React.FC<SlidingWindowProps> = ({ isOpen, onClose, excludeDeckId }) => {
 
     const [loading, setLoading] = useState<boolean>(true);
-
+    
+    const [query, setQuery] = useState<string>("");
     const [page, setPage] = useState<number>(0);
     const [hasMore, setHasMore] = useState<boolean>(true);
     const [cards, setCards] = useState<CardDto[]>([]);
@@ -26,17 +27,24 @@ const DeckDetailsAddCardsSlidingWindow: React.FC<SlidingWindowProps> = ({ isOpen
             return;
         }
         setPage(page + 1);
-        await fetchData(page + 1);
+        await fetchData(page + 1, query);
     };
+    
+    const onQueryChange = (query: string) => {
+        setQuery(query);
+        setPage(0);
+        setCards([]);
+        fetchData(0, query);
+    }
 
-    const fetchData = async (currentPage: number) => {
+    const fetchData = async (currentPage: number, query: string) => {
         const token = authCookie();
         if (token == null) {
             throw new Error("no auth token")
         }
         setLoading(true);
         try {
-            const response = await fetch(`/api/v1/cards?page=${currentPage}&excludeDeckId=${excludeDeckId}`, {
+            const response = await fetch(`/api/v1/cards?page=${currentPage}&excludeDeckId=${excludeDeckId}&q=${query}`, {
                 headers: {
                     "Authorization": 'Bearer ' + token,
                     "Content-Type": "application/json",
@@ -48,8 +56,10 @@ const DeckDetailsAddCardsSlidingWindow: React.FC<SlidingWindowProps> = ({ isOpen
             const result: PageDto<CardDto> = await response.json();
             setHasMore(result.hasNext);
             setTotalCount(result.totalCount);
-            if (result.items.length > 0) {
+            if (result.items.length > 0 && result.page > 0) {
                 setCards([...cards, ...result.items]);
+            } else {
+                setCards(result.items);
             }
         } catch (err: any) {
             alert("error:" + err)
@@ -59,12 +69,13 @@ const DeckDetailsAddCardsSlidingWindow: React.FC<SlidingWindowProps> = ({ isOpen
     };
 
     useEffect(() => {
+        setQuery("");
         setPage(0);
         setCards([]);
         if (!isOpen) {
             return;
         }
-        fetchData(page);
+        fetchData(page, "");
     }, [isOpen]);
 
     return (
@@ -77,6 +88,15 @@ const DeckDetailsAddCardsSlidingWindow: React.FC<SlidingWindowProps> = ({ isOpen
                         <button onClick={onClose} className="sliding-window-close-button">
                             <FontAwesomeIcon icon={faClose}></FontAwesomeIcon>
                         </button>
+                    </div>
+                    
+                    <div className="sliding-window-search">
+                        <input
+                            type="text"
+                            placeholder="Search cards"
+                            value={query}
+                            onChange={(e) => onQueryChange(e.target.value)}
+                        />
                     </div>
 
                     {loading ? (

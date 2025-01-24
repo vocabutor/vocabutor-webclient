@@ -719,6 +719,12 @@ select:focus {
   justify-content: space-between;
 }
 
+.sliding-window-search {
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+}
+
 .sliding-window-card {
   display: flex;
   align-items: center;
