@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { authCookie } from '../../../../helpers/Cookies';
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+
 interface SidebarCardProps {
     cardId: string;
     phrase: string;
@@ -37,13 +40,22 @@ export default function SidebarCard({ cardId, phrase, deckId }: SidebarCardProps
 
     return (
         <div className="sliding-window-card">
+            <div className="sidebar-list-item-checkbox">
+                {selected ? (
+                    <span className="icon-with-transition">
+                        <FontAwesomeIcon icon={faCheck} className="green-tick-icon" />
+                    </span>
+                ) : (
+                    <input
+                        type="checkbox"
+                        onChange={handleSelect}
+                        disabled={saving}
+                        className="checkbox-input"
+                    />
+                )}
+            </div>
             <div className="sidebar-list-item-title">
                 {phrase}
-            </div>
-            <div className="sidebar-list-item-checkbox">
-                {selected ?
-                    <span>selected!</span> :
-                    <input type="checkbox" onChange={handleSelect} disabled={saving} />}
             </div>
         </div>
     );

@@ -721,7 +721,7 @@ select:focus {
 
 .sliding-window-card {
   display: flex;
-  align-items: space-between;
+  align-items: center;
   padding: 10px 15px;
   background-color: var(--input-bg);
   border: 1px solid var(--input-border);
@@ -730,6 +730,7 @@ select:focus {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
   max-width: 1000px;
+  gap: 10px;
 }
 
 .sidebar-list {
@@ -765,4 +766,22 @@ select:focus {
   width: 40px;
   height: 40px;
   animation: spin 1s linear infinite;
+}
+
+.checkbox-input {
+  cursor: pointer;
+  transition: opacity 0.3s ease-out;
+}
+
+.icon-with-transition {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.green-tick-icon {
+  color: green;
+  font-size: 1.0rem;
+  transform: scale(1.2);
 }
