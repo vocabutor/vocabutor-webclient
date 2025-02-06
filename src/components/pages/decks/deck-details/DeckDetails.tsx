@@ -222,7 +222,7 @@ export default function DeckDetails() {
                 </div>
             </div>
 
-            <div className="sub-paged-list">
+            <div>
                 Displaying {deck?.cards.length} of {deck?.cards.length} items
             </div>
             

@@ -540,7 +540,7 @@ select:focus {
   justify-content: center;
 }
 
-.sub-paged-list {
+.pagination-count {
   font-size: 12px;
   color: var(--text-color-2);
 }
@@ -790,4 +790,38 @@ select:focus {
   color: green;
   font-size: 1.0rem;
   transform: scale(1.2);
+}
+
+/* Pagination */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.pagination-button {
+  background: var(--input-bg);
+  color: var(--text-color-2);
+  border: 1px solid var(--input-border);
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.pagination-button:hover {
+  background: var(--primary-button-color-hover);
+  color: black;
+}
+
+.pagination-button.active {
+  background: var(--primary-button-color);
+  color: black;
+}
+
+.pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

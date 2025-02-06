@@ -1,19 +1,24 @@
 import { useEffect, useState } from 'react';
 import { authCookie } from '../../../helpers/Cookies';
-import { CardDto } from '../../../helpers/CommonEntities';
+import { CardDto, PageDto } from '../../../helpers/CommonEntities';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link, useNavigate } from 'react-router-dom';
 import Flashcard from '../../Flashcard';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import Pagination from '../../ui/Pagination';
+import PaginationCount from '../../ui/PaginationCount';
 
 export default function Cards() {
 
     const navigate = useNavigate();
-    
+
     const [data, setData] = useState<CardDto[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    
+    const [page, setPage] = useState<number>(0);
+    const [totalElements, setTotalElements] = useState<number>(0);
+    const [pageSize, setPageSize] = useState<number>(20);
+
     const handleDelete = async (cardId: string) => {
         const token = authCookie();
         if (token == null) {
@@ -30,19 +35,21 @@ export default function Cards() {
             if (!response.ok) {
                 throw new Error(`Error: ${response.statusText}`);
             }
-            fetchData();
+            fetchData(0);
         } catch (err: any) {
             alert("error:" + err)
         }
     };
-    
-    const fetchData = async () => {
+
+    const fetchData = async (page: number) => {
+        setPage(page);
         const token = authCookie();
         if (token == null) {
             throw new Error("no auth token")
         }
         try {
-            const response = await fetch("/api/v1/cards?size=20", {
+            setLoading(true);
+            const response = await fetch(`/api/v1/cards?size=${pageSize}&page=${page}`, {
                 headers: {
                     "Authorization": 'Bearer ' + token,
                     "Content-Type": "application/json",
@@ -51,7 +58,8 @@ export default function Cards() {
             if (!response.ok) {
                 throw new Error(`Error: ${response.statusText}`);
             }
-            const result = await response.json();
+            const result: PageDto<CardDto> = await response.json();
+            setTotalElements(result.totalCount)
             setData(result.items);
         } catch (err: any) {
             setError(err.message);
@@ -61,10 +69,9 @@ export default function Cards() {
     };
 
     useEffect(() => {
-        fetchData();
+        fetchData(0);
     }, []);
 
-    if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
     return (
@@ -73,7 +80,7 @@ export default function Cards() {
                 <h1 className='header-title'>Cards</h1>
                 <div className='list-header-actions'>
                     <Link to="/cards/new">
-                        <button className="btn primary">
+                        <button className="btn primary" disabled={loading}>
                             New Card
                             <FontAwesomeIcon icon={faPlusCircle} />
                         </button>
@@ -82,21 +89,43 @@ export default function Cards() {
             </div>
 
             <div className='flashcard-list'>
-            <>
-                    {data.map((item) => (
-                        <Flashcard
-                            key={item.id}
-                            title={item.phrase}
-                            description="Here goes some description for the card"
-                            onDetails={() => navigate(`/cards/${item.id}?source=cards`)}
-                            onDelete={() => handleDelete(item.id)}
-                        />
-                    ))}
+                {loading ?
+                    <>
+                        {Array.from({ length: 10 }, (_, index) => (
+                            <div key={index} className="skeleton flash-card-skeleton"></div>
+                        ))}
                     </>
+                    :
+                    <>
+                        {data.map((item) => (
+                            <Flashcard
+                                key={item.id}
+                                title={item.phrase}
+                                description="Here goes some description for the card"
+                                onDetails={() => navigate(`/cards/${item.id}?source=cards`)}
+                                onDelete={() => handleDelete(item.id)}
+                            />
+                        ))}
+                    </>
+                }
             </div>
-            
-            <div className="sub-paged-list">
-                Displaying {data.length} of {data.length} items
+
+            <div>
+                <PaginationCount
+                    currentPage={page}
+                    totalElements={totalElements}
+                    pageSize={pageSize}
+                    currentPageSize={data.length}
+                />
+            </div>
+
+            <div>
+                <Pagination
+                    currentPage={page + 1}
+                    totalElements={totalElements}
+                    pageSize={20}
+                    onPageChange={(page) => fetchData(page - 1)}
+                />
             </div>
 
         </div>
