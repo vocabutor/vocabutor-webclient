@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function RecentCards() {
     return (
         <section className="home-main-section recent-items">
@@ -19,9 +21,11 @@ function RecentCards() {
             </div>
 
             <div className="show-all-container">
-                <button className="btn primary show-all-btn" onClick={() => window.location.href = '/cards'}>
-                    Show All
-                </button>
+                <Link to="/cards">
+                    <button className="btn primary show-all-btn">
+                        Show All
+                    </button>
+                </Link>
             </div>
         </section>
     );
