@@ -13,13 +13,14 @@ type PaginationProps = {
   
   const Pagination: React.FC<PaginationProps> = ({ currentPage, totalElements, pageSize, onPageChange, disabled }) => {
     const totalPages = Math.ceil(totalElements / pageSize);
-    
+    const currentPageOneBased = currentPage + 1;
+
     const getPageNumbers = () => {
       const pages = [];
       const maxVisiblePages = 5;
       const half = Math.floor(maxVisiblePages / 2);
   
-      let start = Math.max(1, currentPage - half);
+      let start = Math.max(1, currentPage + 1 - half);
       let end = Math.min(totalPages, start + maxVisiblePages - 1);
   
       if (end - start < maxVisiblePages - 1) {
@@ -34,17 +35,17 @@ type PaginationProps = {
   
     return (
       <div className="pagination-container">
-        <PaginationButton disabled={currentPage === 1 || disabled} onClick={() => onPageChange(currentPage - 1)}>
+        <PaginationButton disabled={currentPageOneBased === 1 || disabled} onClick={() => onPageChange(currentPage - 1)}>
           <FontAwesomeIcon icon={faChevronLeft} />
         </PaginationButton>
   
         {getPageNumbers().map((page) => (
-          <PaginationButton key={page} disabled={disabled} active={currentPage === page} onClick={() => onPageChange(page)}>
+          <PaginationButton key={page} disabled={disabled} active={currentPageOneBased === page} onClick={() => onPageChange(page - 1)}>
             {page}
           </PaginationButton>
         ))}
   
-        <PaginationButton disabled={currentPage === totalPages || disabled} onClick={() => onPageChange(currentPage + 1)}>
+        <PaginationButton disabled={currentPageOneBased === totalPages || disabled} onClick={() => onPageChange(currentPage + 1)}>
           <FontAwesomeIcon icon={faChevronRight} />
         </PaginationButton>
       </div>

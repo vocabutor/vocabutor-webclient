@@ -121,10 +121,10 @@ export default function Cards() {
 
             <div>
                 <Pagination
-                    currentPage={page + 1}
+                    currentPage={page}
                     totalElements={totalElements}
-                    pageSize={20}
-                    onPageChange={(page) => fetchData(page - 1)}
+                    pageSize={pageSize}
+                    onPageChange={(page) => fetchData(page)}
                 />
             </div>
 

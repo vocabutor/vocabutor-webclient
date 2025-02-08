@@ -5,6 +5,8 @@ import defaultImage from '../../../assets/default-deck2.webp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark, faThumbTack, faPlusCircle, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { Link, useNavigate } from 'react-router-dom';
+import Pagination from '../../ui/Pagination';
+import PaginationCount from '../../ui/PaginationCount';
 
 function Decks() {
 
@@ -13,33 +15,38 @@ function Decks() {
     const [data, setData] = useState<DeckDto[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [page, setPage] = useState<number>(0);
+    const [pageSize, setPageSize] = useState<number>(10);
+    const [totalElements, setTotalElements] = useState<number>(0);
+
+    const fetchData = async (page: number) => {
+        setPage(page);
+        const token = authCookie();
+        if (token == null) {
+            throw new Error("no auth token")
+        }
+        try {
+            const response = await fetch(`/api/v1/decks?size=${pageSize}&page=${page}`, {
+                headers: {
+                    "Authorization": 'Bearer ' + token,
+                    "Content-Type": "application/json",
+                },
+            });
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            const result = await response.json();
+            setData(result.items);
+            setTotalElements(result.totalCount);
+        } catch (err: any) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            const token = authCookie();
-            if (token == null) {
-                throw new Error("no auth token")
-            }
-            try {
-                const response = await fetch("/api/v1/decks?size=10", {
-                    headers: {
-                        "Authorization": 'Bearer ' + token,
-                        "Content-Type": "application/json",
-                    },
-                });
-                if (!response.ok) {
-                    throw new Error(`Error: ${response.statusText}`);
-                }
-                const result = await response.json();
-                setData(result.items);
-            } catch (err: any) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
+        fetchData(0);
     }, []);
 
     if (loading) return <div>Loading...</div>;
@@ -63,7 +70,7 @@ function Decks() {
                 {data.map((v, _) => (
                     <div className="el-card" onClick={(_: React.MouseEvent<HTMLElement>) => {
                         navigate(`/decks/${v.id}`)
-                      }}>
+                    }}>
                         <div className="el-card-photo">
                             <img src={defaultImage} alt="Item Photo" />
                         </div>
@@ -85,6 +92,11 @@ function Decks() {
                         </div>
                     </div>
                 ))}
+            </div>
+
+            <div>
+                <Pagination currentPage={page} totalElements={totalElements} pageSize={pageSize} onPageChange={(page: number) => fetchData(page)} />
+                <PaginationCount currentPage={page} totalElements={totalElements} pageSize={pageSize} currentPageSize={data.length} />
             </div>
 
         </div>
