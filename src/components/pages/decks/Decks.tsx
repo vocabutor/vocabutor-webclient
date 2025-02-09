@@ -7,6 +7,7 @@ import { faXmark, faThumbTack, faPlusCircle, faPenToSquare } from '@fortawesome/
 import { Link, useNavigate } from 'react-router-dom';
 import Pagination from '../../ui/Pagination';
 import PaginationCount from '../../ui/PaginationCount';
+import UpdateDeckSidebar from './UpdateDeckSidebar';
 
 function Decks() {
 
@@ -18,6 +19,22 @@ function Decks() {
     const [page, setPage] = useState<number>(0);
     const [pageSize, setPageSize] = useState<number>(10);
     const [totalElements, setTotalElements] = useState<number>(0);
+    const [isUpdateSidebarOpen, setIsUpdateSidebarOpen] = useState<boolean>(false);    
+    const [selectedDeck, setSelectedDeck] = useState<DeckDto | null>(null);
+    
+    const onUpdateSideClosed = (updated: boolean) => {
+        setIsUpdateSidebarOpen(false);
+        if (updated) {
+            fetchData(page);
+        }
+    }
+
+    const openUpdateSidebar = (e: React.MouseEvent<HTMLElement>, deck: DeckDto) => {
+        e.stopPropagation();
+        const deckClone: DeckDto = JSON.parse(JSON.stringify(deck));
+        setSelectedDeck(deckClone);
+        setIsUpdateSidebarOpen(true);
+    }
 
     const fetchData = async (page: number) => {
         setPage(page);
@@ -78,16 +95,16 @@ function Decks() {
                             <h3 className="el-card-title">{v.title}</h3>
                             <p className="el-card-description multiline-ellipsis">Optional description goes here. This can provide more details about the item.</p>
                         </div>
-                        <div className='el-card-actions-button lg-screen'>
+                        <div className='el-card-actions-button lg-screen' onClick={(e) => openUpdateSidebar(e, v)}>
                             <FontAwesomeIcon icon={faPenToSquare} />
                         </div>
-                        <div className='el-card-actions-button lg-screen'>
+                        <div className='el-card-actions-button lg-screen' onClick={(e) => e.stopPropagation()}>
                             <FontAwesomeIcon icon={faThumbTack} />
                         </div>
-                        <div className='el-card-actions-button lg-screen'>
+                        <div className='el-card-actions-button lg-screen' onClick={(e) => e.stopPropagation()}>
                             <FontAwesomeIcon icon={faXmark} />
                         </div>
-                        <div className='el-card-actions-button sm-screen'>
+                        <div className='el-card-actions-button sm-screen' onClick={(e) => e.stopPropagation()}>
                             ...
                         </div>
                     </div>
@@ -98,6 +115,8 @@ function Decks() {
                 <Pagination currentPage={page} totalElements={totalElements} pageSize={pageSize} onPageChange={(page: number) => fetchData(page)} />
                 <PaginationCount currentPage={page} totalElements={totalElements} pageSize={pageSize} currentPageSize={data.length} />
             </div>
+            
+            <UpdateDeckSidebar isOpen={isUpdateSidebarOpen} onClose={(updated: boolean) => onUpdateSideClosed(updated)} deck={selectedDeck} />
 
         </div>
     );
